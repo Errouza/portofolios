@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio | Dhiaulhaq</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
         /* Parallax effect */
         .parallax {
@@ -44,46 +46,46 @@
     <!-- Parallax Hero Section -->
     <section class="parallax flex flex-col items-center justify-center h-screen relative fade-in">
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-        <div class="relative z-10 text-center fade-in">
+        <div class="relative z-10 text-center fade-in" data-aos="fade-up">
             <h1 class="text-5xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent drop-shadow-lg transition-all duration-700 hover:scale-105">SYAHNAUVAL DHIAULHAQ</h1>
             <p class="text-xl md:text-2xl font-light mb-8 transition-all duration-700">Web Developer | UI/UX Enthusiast | Data Scientist</p>
-            <a href="#about" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">Lihat Portofolio</a>
+            <a href="#about" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">View Portfolio</a>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="py-20 px-4 md:px-0 bg-black bg-opacity-80 fade-in">
-        <div class="max-w-3xl mx-auto text-center fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400 transition-all duration-700 hover:scale-105">Tentang Saya</h2>
-            <p class="text-lg md:text-xl text-gray-300 transition-all duration-700">Saya adalah seorang developer yang berfokus pada pembuatan website modern, elegan, dan responsif dengan sentuhan futuristik. Saya percaya desain yang baik dapat meningkatkan pengalaman pengguna dan memberikan nilai lebih pada setiap proyek.</p>
+        <div class="max-w-3xl mx-auto text-center fade-in" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400 transition-all duration-700 hover:scale-105">About Me</h2>
+            <p class="text-lg md:text-xl text-gray-300 transition-all duration-700">I am a developer focused on creating modern, elegant, and responsive websites with a futuristic touch. I believe good design can enhance user experience and add value to every project.</p>
         </div>
     </section>
 
     <!-- Portfolio Section -->
     <section id="portfolio" class="py-20 px-4 md:px-0 bg-gradient-to-br from-black via-gray-900 to-green-700 fade-in">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-green-400 transition-all duration-700 hover:scale-105">Proyek Terbaru</h2>
+        <div class="max-w-5xl mx-auto" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-green-400 transition-all duration-700 hover:scale-105">Latest Projects</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Project Card 1 -->
                 <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-lg p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl fade-in">
                     <img src="aset\Bookid.jpg" alt="Project 1" class="rounded-lg mb-4 transition-all duration-700 hover:scale-105">
                     <h3 class="text-xl font-semibold mb-2 text-green-300 transition-all duration-700 hover:text-green-400">Project BookID</h3>
-                    <p class="text-gray-300 mb-4 transition-all duration-700">Sebuah aplikasi manajemen buku yang memudahkan pengguna dalam mencari dan meminjam buku di perpustakaan dengan mudah dan cepat.</p>
-                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">Lihat Detail</a>
+                    <p class="text-gray-300 mb-4 transition-all duration-700">A book management application that makes it easy for users to search and borrow books in the library quickly and efficiently.</p>
+                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">View Details</a>
                 </div>
                 <!-- Project Card 2 -->
                 <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-lg p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl fade-in">
                     <img src="aset/Dyacom.jpg" alt="Project 2" class="rounded-lg mb-4 transition-all duration-700 hover:scale-105">
                     <h3 class="text-xl font-semibold mb-2 text-green-300 transition-all duration-700 hover:text-green-400">Project Dyacom</h3>
-                    <p class="text-gray-300 mb-4 transition-all duration-700">Aplikasi web manajemen data yang membantu perusahaan Dyacom dalam mengelola dan menganalisis informasi dengan lebih efisien.</p>
-                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">Lihat Detail</a>
+                    <p class="text-gray-300 mb-4 transition-all duration-700">A data management web application that helps Dyacom company manage and analyze information more efficiently.</p>
+                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">View Details</a>
                 </div>
                 <!-- Project Card 3 -->
                 <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-lg p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl fade-in">
                     <img src="aset/Simantap.jpg" alt="Project 3" class="rounded-lg mb-4 transition-all duration-700 hover:scale-105">
                     <h3 class="text-xl font-semibold mb-2 text-green-300 transition-all duration-700 hover:text-green-400">Project Simantap</h3>
-                    <p class="text-gray-300 mb-4 transition-all duration-700">Aplikasi web manajemen data yang membantu pengurus masjid dalam mengelola informasi dan kegiatan masjid dengan lebih baik.</p>
-                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">Lihat Detail</a>
+                    <p class="text-gray-300 mb-4 transition-all duration-700">A data management web application that helps mosque administrators better manage mosque information and activities.</p>
+                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">View Details</a>
                 </div>
             </div>
         </div>
@@ -97,25 +99,25 @@
             <div class="absolute w-96 h-96 bg-blue-500 rounded-full filter blur-[128px] opacity-20 -bottom-20 -right-20"></div>
         </div>
 
-        <div class="max-w-6xl mx-auto relative z-10">
+        <div class="max-w-6xl mx-auto relative z-10" data-aos="fade-up">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent transition-all duration-700 hover:scale-105">
-                Sertifikat
+                Certificates
             </h2>
 
             <!-- Scroll Navigation Buttons -->
             <div class="hidden md:block">
-                <button class="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 bg-gradient-to-r from-gray-900 to-transparent px-4 py-8 text-green-400 hover:text-green-300 transition-all duration-300" onclick="document.getElementById('certificate-container').scrollBy({left: -300, behavior: 'smooth'})">
+                <button class="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 bg-gradient-to-r from-gray-900 to-black px-4 py-8 text-green-400 hover:text-green-300 transition-all duration-300" onclick="document.getElementById('certificate-container').scrollBy({left: -300, behavior: 'smooth'})">
                     &#10094;
                 </button>
-                <button class="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 bg-gradient-to-l from-gray-900 to-transparent px-4 py-8 text-green-400 hover:text-green-300 transition-all duration-300" onclick="document.getElementById('certificate-container').scrollBy({left: 300, behavior: 'smooth'})">
+                <button class="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 bg-gradient-to-l from-gray-900 to-black px-4 py-8 text-green-400 hover:text-green-300 transition-all duration-300" onclick="document.getElementById('certificate-container').scrollBy({left: 300, behavior: 'smooth'})">
                     &#10095;
                 </button>
             </div>
 
             <div class="relative px-4">
                 <!-- Scroll Container -->
-                <div id="certificate-container" class="overflow-x-auto hide-scrollbar pb-6" style="-webkit-overflow-scrolling: touch;">
-                    <div class="inline-flex space-x-6">
+                <div id="certificate-container" class="overflow-x-auto hide-scrollbar pb-6 flex items-center justify-center" style="-webkit-overflow-scrolling: touch;">
+                    <div class="inline-flex space-x-6 mx-auto">
 
                         <!-- Certificate Card 1 -->
                         <div class="w-80 flex-shrink-0 bg-gray-900 bg-opacity-40 backdrop-blur-lg rounded-xl p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl border border-green-500/30 group">
@@ -123,8 +125,8 @@
                                 <img src="aset/48_SYAHNAUVAL_DHIAULHAQ_RIDWAN_page-0001.jpg" alt="Certificate 1" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
                                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2 text-green-300 group-hover:text-green-400 transition-colors duration-300">Sertifikat Asisten Praktikum Penambangan Data</h3>
-                            <p class="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">Sertifikat menjadi asisten praktikum penambangan data</p>
+                            <h3 class="text-xl font-semibold mb-2 text-green-300 group-hover:text-green-400 transition-colors duration-300">Data Mining Lab Assistant Certificate</h3>
+                            <p class="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">Certificate of achievement as a data mining laboratory assistant</p>
                         </div>
                     </div>
                 </div>
@@ -134,12 +136,12 @@
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 px-4 md:px-0 bg-black bg-opacity-90 fade-in">
-        <div class="max-w-2xl mx-auto text-center fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400 transition-all duration-700 hover:scale-105">Kontak</h2>
-            <p class="text-lg text-gray-300 mb-4 transition-all duration-700">Tertarik bekerja sama atau ingin tahu lebih lanjut? Silakan hubungi saya melalui email di bawah ini.</p>
-            <a href="mailto:dhiaulhaqrza@gmail.com" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">Kirim Email</a>
-            <p class="mb-4 mt-4 text-gray-300">Atau kirim pesan melalui WhatsApp:</p>
-            <a href="https://wa.me/6289652494974" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">Kirim WhatsApp</a>
+        <div class="max-w-2xl mx-auto text-center fade-in" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400 transition-all duration-700 hover:scale-105">Contact</h2>
+            <p class="text-lg text-gray-300 mb-4 transition-all duration-700">Interested in working together or want to know more? Feel free to contact me via email below.</p>
+            <a href="mailto:dhiaulhaqrza@gmail.com" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">Send Email</a>
+            <p class="mb-4 mt-4 text-gray-300">Or send a message via WhatsApp:</p>
+            <a href="https://wa.me/6289652494974" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">Send WhatsApp</a>
         </div>
     </section>
 
@@ -147,4 +149,7 @@
         &copy; 2025 Dhiaulhaq. All rights reserved.
     </footer>
 </body>
+    <script>
+        AOS.init();
+    </script>
 </html>
