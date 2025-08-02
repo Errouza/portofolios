@@ -11,7 +11,7 @@ This portfolio is designed to provide an overview of my work and capabilities as
 ## Live Demo
 
 You can view the live version of my portfolio at:
-**[https://errouza.github.io/portoflios](https://errouza.github.io/portoflios)**
+**[https://errouza.github.io/portofolios](https://errouza.github.io/portofolios)**
 
 ## Features
 
