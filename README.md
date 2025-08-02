@@ -40,7 +40,7 @@ To run this project locally, follow these steps:
     ```
 2.  **Navigate to the project directory:**
     ```bash
-    cd portoflios
+    cd portofolios
     ```
 3.  **Open `index.html`:**
     Simply open the `index.html` file in your preferred web browser.
