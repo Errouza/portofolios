@@ -12,6 +12,8 @@ This portfolio is designed to provide an overview of my work and capabilities as
 
 You can view the live version of my portfolio at:
 **[https://errouza.github.io/portofolios](https://errouza.github.io/portofolios)**
+Or at:
+**[https://portofolios-rza.vercel.app](https://portofolios-rza.vercel.app/)**
 
 ## Features
 
