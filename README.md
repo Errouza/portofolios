@@ -26,9 +26,9 @@ You can view the live version of my portfolio at:
 This portfolio was built using the following technologies:
 
 * **HTML5:** For structuring the content.
-* **CSS3:** For styling and layout.
+* **CSS3 (Tailwind):** For styling and layout.
 * **JavaScript:** For interactive elements and dynamic content.
-* [Add any specific frameworks, libraries, or tools you used, e.g., React, Bootstrap, SCSS, Git, GitHub Pages]
+
 
 ## Getting Started
 
