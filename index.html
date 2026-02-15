@@ -1,183 +1,306 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio | Dhiaulhaq</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind & AOS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <style>
-        /* Parallax effect */
-        .parallax {
-            background-image: linear-gradient(135deg, #0f2027 0%, #2c5364 50%, #00ff88 100%);
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-        }
-        /* Fade-in animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInUp 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: none;
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                        },
+                        brand: {
+                            400: '#34d399', // Emerald 400
+                            500: '#10b981', // Emerald 500
+                            600: '#059669', // Emerald 600
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
             }
         }
-        /* Hide scrollbar but keep functionality */
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+    </script>
+
+    <style>
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
         }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #34d399;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(52, 211, 153, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+        
+        /* Expansion on hover */
+        body.hovering .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(52, 211, 153, 0.1);
+            border-color: transparent;
+        }
+
+        /* Hide Default Scrollbar */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
-        /* Glass effect */
-        .backdrop-blur-lg {
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+        .hide-scrollbar {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-black via-gray-900 to-green-500 min-h-screen text-white">
+<body class="bg-dark-900 text-gray-300 antialiased selection:bg-brand-500 selection:text-white cursor-none">
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- Navigation (Floating) -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white tracking-wide hover-target">
+                SD<span class="text-brand-400">.</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-sm font-medium hover:text-brand-400 transition-colors hover-target">About</a>
+                <a href="#portfolio" class="text-sm font-medium hover:text-brand-400 transition-colors hover-target">Projects</a>
+                <a href="#skills" class="text-sm font-medium hover:text-brand-400 transition-colors hover-target">Skills</a>
+                <a href="#certificates" class="text-sm font-medium hover:text-brand-400 transition-colors hover-target">Certificates</a>
+                <a href="#contact" class="text-sm font-medium hover:text-brand-400 transition-colors hover-target">Contact</a>
+            </div>
+            <!-- Mobile Menu Button (Simplified for this demo) -->
+            <button class="md:hidden text-white hover-target">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+
     <!-- Parallax Hero Section -->
-    <section class="parallax flex flex-col items-center justify-center h-screen relative fade-in">
-        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-        <div class="relative z-10 text-center fade-in" data-aos="fade-up">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent drop-shadow-lg transition-all duration-700 hover:scale-105">SYAHNAUVAL DHIAULHAQ</h1>
-            <p class="text-xl md:text-2xl font-light mb-8 transition-all duration-700">Web Developer | UI/UX Enthusiast | Data Scientist</p>
-            <a href="#about" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">View Portfolio</a>
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-dark-900">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full blur-[128px]"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[128px]"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-20"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
+            <p class="text-brand-400 font-medium tracking-widest mb-4 uppercase text-sm">Welcome to my universe</p>
+            <h1 class="text-5xl md:text-8xl font-bold mb-6 text-white leading-tight">
+                Syahnauval <br/>
+                <span class="text-gradient">Dhiaulhaq</span>
+            </h1>
+            <p class="text-xl md:text-2xl font-light text-gray-400 mb-10 max-w-2xl mx-auto">
+                Web Developer | UI/UX Enthusiast | Data Scientist
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <a href="#portfolio" class="group relative px-8 py-3 bg-brand-500 text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] hover-target">
+                    <span class="relative z-10">View Portfolio</span>
+                    <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full transition-transform group-hover:translate-x-full duration-700"></div>
+                </a>
+                <a href="#contact" class="px-8 py-3 bg-transparent border border-white/20 text-white rounded-full font-medium hover:bg-white/5 transition-all hover-target">
+                    Let's Talk
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4 md:px-0 bg-black bg-opacity-80 fade-in">
-        <div class="max-w-3xl mx-auto text-center fade-in" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400 transition-all duration-700 hover:scale-105">About Me</h2>
-            <p class="text-lg md:text-xl text-gray-300 transition-all duration-700">I am a developer specializing in creating modern, elegant, and responsive websites with a futuristic touch. I believe that good design can enhance the user experience and add value to every project. I always strive to continue developing in the world of technology in order to help each other.</p>
+    <section id="about" class="py-24 px-6 md:px-0 relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card rounded-2xl p-8 md:p-12 relative overflow-hidden" data-aos="fade-up">
+                 <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/10 rounded-full blur-[80px] -z-10"></div>
+                
+                <h2 class="text-4xl font-bold mb-8 text-white"><span class="text-brand-400">/</span> About Me</h2>
+                <div class="space-y-6 text-lg text-gray-400 leading-relaxed font-light">
+                    <p>
+                        I am a developer specializing in creating <span class="text-white font-medium">modern, elegant, and responsive websites</span> with a futuristic touch. 
+                        I believe that good design can enhance the user experience and add value to every project.
+                    </p>
+                    <p>
+                        My journey bridges the gap between raw data and visual storytelling. Whether it's crafting a pixel-perfect UI or analyzing complex datasets, 
+                        I always strive to continue developing in the world of technology to help solve real-world problems.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 px-4 md:px-0 bg-gradient-to-br from-black via-gray-900 to-green-700 fade-in">
-        <div class="max-w-5xl mx-auto" data-aos="fade-up">
-            <!-- Futuristic Background Elements -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute w-96 h-96 bg-green-500 rounded-full filter blur-[128px] opacity-20 -top-20 -left-20"></div>
-            <div class="absolute w-96 h-96 bg-blue-500 rounded-full filter blur-[128px] opacity-20 -bottom-20 -right-20"></div>
-        </div>
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-green-400 transition-all duration-700 hover:scale-105">Latest Projects</h2>
-            <div class="grid md:grid-cols-3 gap-8">
+    <section id="portfolio" class="py-24 px-6 md:px-0 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 px-4">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-2">Latest Work<span class="text-brand-400">.</span></h2>
+                    <p class="text-gray-400">Success stories and digital experiences.</p>
+                </div>
+                <!-- Controls for Slider -->
+                <div class="flex gap-4 mt-6 md:mt-0" data-aos="fade-left">
+                     <div class="flex space-x-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-widest my-auto mr-4">Drag / Scroll</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel -->
+            <div id="projects-carousel" class="flex overflow-x-auto gap-8 hide-scrollbar py-10 px-4 cursor-grab active:cursor-grabbing hover-target" style="-webkit-overflow-scrolling: touch;">
+                
                 <!-- Project Card 1 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-lg p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl fade-in">
-                    <img src="aset\Bookid.jpg" alt="Project 1" class="rounded-lg mb-4 transition-all duration-700 hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2 text-green-300 transition-all duration-700 hover:text-green-400">Project BookID</h3>
-                    <p class="text-gray-300 mb-4 transition-all duration-700">A book management application that makes it easy for users to search and borrow books in the library quickly and efficiently.</p>
-                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">View Details</a>
+                <div class="flex-shrink-0 w-full md:w-[450px] group perspective hover-target" data-tilt>
+                    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] h-full flex flex-col">
+                        <div class="relative overflow-hidden h-64">
+                            <img src="aset/Bookid.jpg" alt="Project BookID" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-400 transition-colors">Project BookID</h3>
+                            <p class="text-gray-400 mb-6 flex-1 font-light">A smart book management application streamlining library operations with quick search and borrowing features.</p>
+                            <a href="#" class="inline-flex items-center text-brand-400 hover:text-white transition-colors uppercase text-sm font-semibold tracking-wider">
+                                View Case Study <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
                 <!-- Project Card 2 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-lg p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl fade-in">
-                    <img src="aset/Dyacom.jpg" alt="Project 2" class="rounded-lg mb-4 transition-all duration-700 hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2 text-green-300 transition-all duration-700 hover:text-green-400">Project Dyacom</h3>
-                    <p class="text-gray-300 mb-4 transition-all duration-700">A data management web application that helps Dyacom company manage and analyze information more efficiently.</p>
-                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">View Details</a>
+                <div class="flex-shrink-0 w-full md:w-[450px] group perspective hover-target" data-tilt>
+                    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] h-full flex flex-col">
+                        <div class="relative overflow-hidden h-64">
+                            <img src="aset/Dyacom.jpg" alt="Dyacom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-400 transition-colors">Dyacom Systems</h3>
+                            <p class="text-gray-400 mb-6 flex-1 font-light">Data management platform helping Dyacom analyze corporate information efficiently and drastically reduce redundancy.</p>
+                            <a href="#" class="inline-flex items-center text-brand-400 hover:text-white transition-colors uppercase text-sm font-semibold tracking-wider">
+                                View Case Study <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
                 <!-- Project Card 3 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-lg p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl fade-in">
-                    <img src="aset/Simantap.jpg" alt="Project 3" class="rounded-lg mb-4 transition-all duration-700 hover:scale-105">
-                    <h3 class="text-xl font-semibold mb-2 text-green-300 transition-all duration-700 hover:text-green-400">Project Simantap</h3>
-                    <p class="text-gray-300 mb-4 transition-all duration-700">A data management web application that helps mosque administrators better manage mosque information and activities.</p>
-                    <a href="#" class="text-green-400 hover:underline transition-all duration-500">View Details</a>
+                <div class="flex-shrink-0 w-full md:w-[450px] group perspective hover-target" data-tilt>
+                    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] h-full flex flex-col">
+                        <div class="relative overflow-hidden h-64">
+                            <img src="aset/Simantap.jpg" alt="Simantap" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-400 transition-colors">Simantap</h3>
+                            <p class="text-gray-400 mb-6 flex-1 font-light">Mosque management system designed to organize activities, finance, and community engagement in one centered hub.</p>
+                            <a href="#" class="inline-flex items-center text-brand-400 hover:text-white transition-colors uppercase text-sm font-semibold tracking-wider">
+                                View Case Study <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Skill Section -->
-    <section id="skills" class="py-20 px-4 md:px-0 bg-black bg-opacity-80 fade-in">
-        <div class="max-w-3xl mx-auto text-center fade-in" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400 transition-all duration-700 hover:scale-105">Skills</h2>
-            <p class="text-lg md:text-xl text-gray-300 transition-all duration-700">I have a diverse skill set that includes:</p><br>
-                       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                <!-- Skill Card 1 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl p-6 flex flex-col items-center shadow-lg transition-all duration-700 hover:scale-105 hover:shadow-2xl">
-                    <svg class="w-10 h-10 mb-3 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>
-                    <span class="text-green-400 font-semibold text-lg mb-2">Web Development</span>
-                    <p class="text-gray-300 text-sm text-center">HTML, CSS, JavaScript</p>
+                <!-- Project Card 4 -->
+                 <div class="flex-shrink-0 w-full md:w-[450px] group perspective hover-target" data-tilt>
+                    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] h-full flex flex-col">
+                        <div class="relative overflow-hidden h-64">
+                            <img src="aset/pengaduan.png" alt="Pengaduan UMKM" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-400 transition-colors">UMKM Care</h3>
+                            <p class="text-gray-400 mb-6 flex-1 font-light">A dedicated channel for UMKM complaints and feedback to foster business development and resolution.</p>
+                            <a href="https://lapor.aisteknologi.id" target="_blank" class="inline-flex items-center text-brand-400 hover:text-white transition-colors uppercase text-sm font-semibold tracking-wider">
+                                Visit Website <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <!-- Skill Card 2 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl p-6 flex flex-col items-center shadow-lg transition-all duration-700 hover:scale-105 hover:shadow-2xl">
-                    <svg class="w-10 h-10 mb-3 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
-                    <span class="text-green-400 font-semibold text-lg mb-2">Database Management</span>
-                    <p class="text-gray-300 text-sm text-center">MySQL</p>
-                </div>
-                <!-- Skill Card 3 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl p-6 flex flex-col items-center shadow-lg transition-all duration-700 hover:scale-105 hover:shadow-2xl">
-                    <svg class="w-10 h-10 mb-3 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 15l4-4 4 4"/></svg>
-                    <span class="text-green-400 font-semibold text-lg mb-2">UI/UX Design</span>
-                    <p class="text-gray-300 text-sm text-center">Figma, Adobe XD, Canva</p>
-                </div>
-                <!-- Skill Card 4 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl p-6 flex flex-col items-center shadow-lg transition-all duration-700 hover:scale-105 hover:shadow-2xl">
-                    <svg class="w-10 h-10 mb-3 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M9 20H4v-2a3 3 0 0 1 5.356-1.857M12 4v4m0 0l-2-2m2 2l2-2"/></svg>
-                    <span class="text-green-400 font-semibold text-lg mb-2">Data Science</span>
-                    <p class="text-gray-300 text-sm text-center">Python, Data Analysis</p>
-                </div>
-                <!-- Skill Card 5 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl p-6 flex flex-col items-center shadow-lg transition-all duration-700 hover:scale-105 hover:shadow-2xl">
-                    <svg class="w-10 h-10 mb-3 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 8h10M7 12h4m1 8a9 9 0 1 0-2 0"/></svg>
-                    <span class="text-green-400 font-semibold text-lg mb-2">Version Control</span>
-                    <p class="text-gray-300 text-sm text-center">Git, GitHub</p>
-                </div>
-                <!-- Skill Card 6 -->
-                <div class="bg-gray-900 bg-opacity-80 rounded-xl p-6 flex flex-col items-center shadow-lg transition-all duration-700 hover:scale-105 hover:shadow-2xl">
-                    <svg class="w-10 h-10 mb-3 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 17v-6a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v6"/><path d="M12 12v4"/></svg>
-                    <span class="text-green-400 font-semibold text-lg mb-2">API Development</span>
-                    <p class="text-gray-300 text-sm text-center">REST API</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Certificates Section -->
-    <section id="certificates" class="py-20 px-4 md:px-0 bg-gradient-to-br from-black via-gray-900 to-green-700 fade-in relative overflow-hidden">
-        <!-- Futuristic Background Elements -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute w-96 h-96 bg-green-500 rounded-full filter blur-[128px] opacity-20 -top-20 -left-20"></div>
-            <div class="absolute w-96 h-96 bg-blue-500 rounded-full filter blur-[128px] opacity-20 -bottom-20 -right-20"></div>
-        </div>
-
-        <div class="max-w-6xl mx-auto relative z-10" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent transition-all duration-700 hover:scale-105">
-                Certificates
-            </h2>
-
-            <!-- Scroll Navigation Buttons -->
-            <div class="hidden md:block">
-                <button class="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 bg-gradient-to-r from-gray-900 to-black px-4 py-8 text-green-400 hover:text-green-300 transition-all duration-300" onclick="document.getElementById('certificate-container').scrollBy({left: -300, behavior: 'smooth'})">
-                    &#10094;
-                </button>
-                <button class="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 bg-gradient-to-l from-gray-900 to-black px-4 py-8 text-green-400 hover:text-green-300 transition-all duration-300" onclick="document.getElementById('certificate-container').scrollBy({left: 300, behavior: 'smooth'})">
-                    &#10095;
-                </button>
-            </div>
-
-            <div class="relative px-4">
-                <!-- Scroll Container -->
-                <div id="certificate-container" class="overflow-x-auto hide-scrollbar pb-6 flex items-center justify-center" style="-webkit-overflow-scrolling: touch;">
-                    <div class="inline-flex space-x-6 mx-auto">
-
-                        <!-- Certificate Card 1 -->
-                        <div class="w-80 flex-shrink-0 bg-gray-900 bg-opacity-40 backdrop-blur-lg rounded-xl p-6 transform transition-all duration-700 hover:scale-105 hover:shadow-2xl border border-green-500/30 group">
-                            <div class="relative overflow-hidden rounded-lg mb-4">
-                                <img src="aset/48_SYAHNAUVAL_DHIAULHAQ_RIDWAN_page-0001.jpg" alt="Certificate 1" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
-                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2 text-green-300 group-hover:text-green-400 transition-colors duration-300">Data Mining Lab Assistant Certificate</h3>
-                            <p class="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">Certificate of achievement as a data mining laboratory assistant</p>
+                 <!-- Project Card 5 -->
+                 <div class="flex-shrink-0 w-full md:w-[450px] group perspective hover-target" data-tilt>
+                    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] h-full flex flex-col">
+                        <div class="relative overflow-hidden h-64">
+                            <img src="aset/DBBarber.png" alt="Groom Go" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-400 transition-colors">Groom Go</h3>
+                            <p class="text-gray-400 mb-6 flex-1 font-light">Modern booking and management solution for barbershops to handle appointments and customer data.</p>
+                            <a href="#" class="inline-flex items-center text-brand-400 hover:text-white transition-colors uppercase text-sm font-semibold tracking-wider">
+                                View Case Study <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -185,22 +308,253 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4 md:px-0 bg-black bg-opacity-90 fade-in">
-        <div class="max-w-2xl mx-auto text-center fade-in" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400 transition-all duration-700 hover:scale-105">Contact</h2>
-            <p class="text-lg text-gray-300 mb-4 transition-all duration-700">Interested in working together or want to know more? Feel free to contact me via email below.</p>
-            <a href="mailto:dhiaulhaqrza@gmail.com" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">Send Email</a>
-            <p class="mb-4 mt-4 text-gray-300">Or send a message via WhatsApp:</p>
-            <a href="https://wa.me/6289652494974" class="inline-block px-8 py-3 bg-green-500 bg-opacity-80 hover:bg-opacity-100 rounded-full text-black font-bold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl">Send WhatsApp</a>
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 md:px-0 bg-dark-900">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Technical Expertise</h2>
+                <div class="h-1 w-20 bg-brand-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skill Item -->
+                <div class="glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-2 hover-target" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-12 h-12 bg-brand-500/10 rounded-lg flex items-center justify-center mb-6 text-brand-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Web Development</h3>
+                    <p class="text-gray-400 text-sm">Crafting responsive and performant web applications using HTML, CSS, Javascript, and Modern Frameworks.</p>
+                </div>
+
+                <!-- Skill Item -->
+                <div class="glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-2 hover-target" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6 text-blue-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Database Management</h3>
+                    <p class="text-gray-400 text-sm">Designing robust schemas and managing data flow with MySQL and optimization techniques.</p>
+                </div>
+
+                <!-- Skill Item -->
+                 <div class="glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-2 hover-target" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-6 text-purple-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">UI/UX Design</h3>
+                    <p class="text-gray-400 text-sm">Creating intuitive and aesthetic interfaces with Figma, ensuring delightful user journeys.</p>
+                </div>
+
+                <!-- Skill Item -->
+                <div class="glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-2 hover-target" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-12 h-12 bg-yellow-500/10 rounded-lg flex items-center justify-center mb-6 text-yellow-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Data Science</h3>
+                    <p class="text-gray-400 text-sm">Analyzing patterns and deriving insights using Python, Pandas, and visualization tools.</p>
+                </div>
+
+                <!-- Skill Item -->
+                <div class="glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-2 hover-target" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-6 text-red-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Git & Version Control</h3>
+                    <p class="text-gray-400 text-sm">Managing codebases efficiently with Git and GitHub for collaborative success.</p>
+                </div>
+                
+                 <!-- Skill Item -->
+                 <div class="glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-2 hover-target" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-12 h-12 bg-pink-500/10 rounded-lg flex items-center justify-center mb-6 text-pink-400">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">API Development</h3>
+                    <p class="text-gray-400 text-sm">Building and integrating RESTful APIs for seamless data exchange between services.</p>
+                </div>
+            </div>
         </div>
     </section>
+    
+    <!-- Certificates Section (Updated) -->
+    <section id="certificates" class="py-24 px-6 md:px-0 relative overflow-hidden">
+         <div class="absolute inset-0 bg-dark-800/50"></div>
+         <div class="max-w-7xl mx-auto relative z-10">
+             <div class="flex justify-between items-end mb-12">
+                 <h2 class="text-3xl md:text-5xl font-bold text-white" data-aos="fade-right">Certifications<span class="text-brand-400">.</span></h2>
+                 <div class="hidden md:flex gap-4">
+                     <button class="p-3 rounded-full border border-white/10 hover:bg-white/10 hover:text-brand-400 text-white transition-all hover-target" onclick="document.getElementById('certificate-container').scrollBy({left: -400, behavior: 'smooth'})">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                     </button>
+                     <button class="p-3 rounded-full border border-white/10 hover:bg-white/10 hover:text-brand-400 text-white transition-all hover-target" onclick="document.getElementById('certificate-container').scrollBy({left: 400, behavior: 'smooth'})">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                     </button>
+                 </div>
+             </div>
+             
+             <div id="certificate-container" class="flex overflow-x-auto gap-8 hide-scrollbar pb-10 px-4 snap-x">
+                 <!-- Cert 1 -->
+                <div class="flex-shrink-0 w-80 md:w-96 snap-center group hover-target">
+                    <div class="glass-card rounded-xl p-4 transition-all duration-300 group-hover:bg-white/5">
+                        <div class="overflow-hidden rounded-lg mb-4 h-56 relative">
+                             <img src="aset/48_SYAHNAUVAL_DHIAULHAQ_RIDWAN_page-0001.jpg" alt="Data Mining Certificate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                 <span class="text-white text-sm font-semibold tracking-wider border border-white px-4 py-2 rounded-full backdrop-blur-sm">VIEW</span>
+                             </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-brand-400 transition-colors">Data Mining Lab Assistant</h3>
+                        <p class="text-xs text-gray-500 uppercase tracking-wide">Laboratory Assistant</p>
+                    </div>
+                </div>
 
-    <footer class="py-6 text-center text-gray-400 bg-black bg-opacity-80 fade-in transition-all duration-700">
-        &copy; 2025 Dhiaulhaq. All rights reserved.
-    </footer>
-</body>
+                <!-- Cert 2 -->
+                <div class="flex-shrink-0 w-80 md:w-96 snap-center group hover-target">
+                    <div class="glass-card rounded-xl p-4 transition-all duration-300 group-hover:bg-white/5">
+                        <div class="overflow-hidden rounded-lg mb-4 h-56 relative">
+                             <img src="aset/139_Syahnauval_Dhiaulhaq_Ridwan_PENGUJIAN_DAN_IMLEMENTASI_SISTEM_page-0001.jpg" alt="Testing Certificate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                 <span class="text-white text-sm font-semibold tracking-wider border border-white px-4 py-2 rounded-full backdrop-blur-sm">VIEW</span>
+                             </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-brand-400 transition-colors">Testing & Implementation</h3>
+                        <p class="text-xs text-gray-500 uppercase tracking-wide">Laboratory Assistant</p>
+                    </div>
+                </div>
+             </div>
+         </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 md:px-0 bg-dark-900 relative">
+        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Let's work together<span class="text-brand-400">.</span></h2>
+            <p class="text-xl text-gray-400 mb-10 max-w-xl mx-auto">Interested in working together or want to know more? I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="mailto:dhiaulhaqrza@gmail.com" class="group px-8 py-4 bg-white text-dark-900 rounded-full font-bold transition-all hover:scale-105 hover:bg-brand-400 hover:text-white hover-target shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    Send Email
+                </a>
+                <a href="https://wa.me/6289652494974" class="group px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-bold transition-all hover:scale-105 hover:bg-white/10 hover-target">
+                    WhatsApp Message
+                </a>
+            </div>
+        </div>
+        
+        <footer class="mt-24 pt-8 border-t border-white/5 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Syahnauval Dhiaulhaq. All rights reserved. <br> Crafted with <span class="text-red-500">♥</span> and Code.</p>
+        </footer>
+    </section>
+
+    <!-- Scripts -->
     <script>
-        AOS.init();
+        // Init AOS
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        const hoverTargets = document.querySelectorAll('.hover-target');
+
+        window.addEventListener('mousemove', function(e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with slight delay (animation handled by CSS transition)
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Hover Effect specific to cursor
+        hoverTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('hovering');
+            });
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('hovering');
+            });
+        });
+
+        // 3D Tilt Effect for Cards
+        const tiltCards = document.querySelectorAll('[data-tilt]');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element.
+                const y = e.clientY - rect.top;  // y position within the element.
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -5; // Max rotation deg
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.children[0].style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.children[0].style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+
+        // Draggable Horizontal Slider Logic (Preserved and Refined)
+        const sliders = [document.getElementById('projects-carousel'), document.getElementById('certificate-container')];
+        
+        sliders.forEach(slider => {
+            if(!slider) return;
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let velX = 0;
+            let isDragging = false;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+                isDragging = false;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+                setTimeout(() => isDragging = false, 50); // Small delay to prevent click firing if it was a drag
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                isDragging = true;
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; 
+                slider.scrollLeft = scrollLeft - walk;
+            });
+            
+            // Prevent link clicks when dragging
+            slider.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (isDragging) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            });
+        });
     </script>
+</body>
 </html>
